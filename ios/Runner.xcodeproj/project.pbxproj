@@ -18,6 +18,7 @@
 		97C147011CF9000F007C117D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FF1CF9000F007C117D /* LaunchScreen.storyboard */; };
 		A563F1592EBD18E8005D2ECF /* NetworkExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A563F1582EBD18E8005D2ECF /* NetworkExtension.framework */; };
 		A563F1612EBD18E8005D2ECF /* Extension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = A563F1572EBD18E8005D2ECF /* Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		B5D2AC7C2F44E0FD00AB3A40 /* TrustTunnel.icon in Resources */ = {isa = PBXBuildFile; fileRef = B5D2AC7B2F44E0FD00AB3A40 /* TrustTunnel.icon */; };
 		FEA1A32FBF581F515B6273F0 /* Pods_Runner.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6BEA1D8553C37980E1F6F103 /* Pods_Runner.framework */; };
 /* End PBXBuildFile section */
 
@@ -93,6 +94,7 @@
 		A563F1582EBD18E8005D2ECF /* NetworkExtension.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NetworkExtension.framework; path = System/Library/Frameworks/NetworkExtension.framework; sourceTree = SDKROOT; };
 		B2757CC72ED837D300A5DA92 /* Profile.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Profile.xcconfig; sourceTree = "<group>"; };
 		B371CC085F5F212F8A598197 /* Pods-Runner.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner.release.xcconfig"; path = "Target Support Files/Pods-Runner/Pods-Runner.release.xcconfig"; sourceTree = "<group>"; };
+		B5D2AC7B2F44E0FD00AB3A40 /* TrustTunnel.icon */ = {isa = PBXFileReference; lastKnownFileType = folder.iconcomposer.icon; path = TrustTunnel.icon; sourceTree = "<group>"; };
 		D80E9E1108C5088711531D60 /* Pods-Extension.profile.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Extension.profile.xcconfig"; path = "Target Support Files/Pods-Extension/Pods-Extension.profile.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -203,6 +205,7 @@
 				331C8082294A63A400263BE5 /* RunnerTests */,
 				8343F2340CC4F1059AC890D5 /* Pods */,
 				2EC77DC3DB62991A25EFCC7F /* Frameworks */,
+				B5D2AC7B2F44E0FD00AB3A40 /* TrustTunnel.icon */,
 			);
 			sourceTree = "<group>";
 		};
@@ -355,6 +358,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B5D2AC7C2F44E0FD00AB3A40 /* TrustTunnel.icon in Resources */,
 				97C147011CF9000F007C117D /* LaunchScreen.storyboard in Resources */,
 				3B3967161E833CAA004F5970 /* AppFrameworkInfo.plist in Resources */,
 				97C146FE1CF9000F007C117D /* Assets.xcassets in Resources */,
@@ -607,7 +611,8 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = B2757CC72ED837D300A5DA92 /* Profile.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = TrustTunnel;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Runner/Runner.entitlements;
 				CODE_SIGN_STYLE = Manual;
@@ -793,7 +798,8 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 9740EEB21CF90195004384FC /* Debug.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = TrustTunnel;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Runner/Runner.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development: Created via API (696F7D6QK5)";
@@ -821,7 +827,8 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 7AFA3C8E1D35360C0083082E /* Release.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = TrustTunnel;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Runner/Runner.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Distribution: Adguard Software Limited (TC3Q7MAJXF)";
