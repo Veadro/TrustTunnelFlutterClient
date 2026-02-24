@@ -85,6 +85,9 @@ class ServerDetailsServiceImpl implements ServerDetailsService {
     protocol: server.vpnProtocol,
     routingProfileId: server.routingProfile.id,
     dnsServers: server.dnsServers.cast<String>(),
+    certificate: server.certificate,
+    enableIpv6: server.ipv6,
+    tlsPrefix: server.tlsPrefix ?? '',
   );
 
   PresentationField? _validateServerName(String serverName, Set<String> otherServerNames) {
