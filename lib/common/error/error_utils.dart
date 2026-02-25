@@ -27,7 +27,7 @@ abstract class ErrorUtils {
     PresentationFieldErrorCode.fieldWrongValue when field.fieldName == PresentationFieldName.sni =>
       ln.domainWrongFieldError,
     PresentationFieldErrorCode.fieldWrongValue when field.fieldName == PresentationFieldName.dnsServers =>
-      ln.dnsServersWrongFieldError,
+      ln.customSniWrongFieldError,
     PresentationFieldErrorCode.fieldWrongValue when field.fieldName == PresentationFieldName.url =>
       ln.urlWrongFieldError,
     PresentationFieldErrorCode.fieldRequired

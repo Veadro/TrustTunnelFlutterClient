@@ -42,11 +42,9 @@ class ServerDetailsServiceImpl implements ServerDetailsService {
       fields.add(domainValidationResult);
     }
 
-    if (data.customSni != null) {
-      final sniValidationResult = _validateCustomSni(data.customSni!);
-      if (sniValidationResult != null) {
-        fields.add(sniValidationResult);
-      }
+    final sniValidationResult = _validateSni(data.customSni);
+    if (sniValidationResult != null) {
+      fields.add(sniValidationResult);
     }
 
     final usernameValidationResult = _validateUsername(data.username);
@@ -111,11 +109,22 @@ class ServerDetailsServiceImpl implements ServerDetailsService {
     return validationResult ? null : _getFieldWrongValue(PresentationFieldName.ipAddress);
   }
 
-  PresentationField? _validateDomain(String domain) => _validateDomainData(domain, PresentationFieldName.domain);
+  PresentationField? _validateSni(String? sni) {
+    if (sni?.trim().isEmpty ?? true) {
+      return null;
+    }
 
-  PresentationField? _validateCustomSni(String sni) => _validateDomainData(sni, PresentationFieldName.sni);
+    final valid = ValidationUtils.tryParseDomain(sni!) != null;
 
-  PresentationField? _validateDomainData(String domain, PresentationFieldName fieldName) {
+    if (!valid) {
+      return _getFieldWrongValue(PresentationFieldName.sni);
+    }
+
+    return null;
+  }
+
+  PresentationField? _validateDomain(String domain) {
+    final fieldName = PresentationFieldName.domain;
     if (domain.isEmpty) {
       return _getRequiredField(fieldName);
     }
