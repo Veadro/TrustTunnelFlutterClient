@@ -116,7 +116,7 @@ final class Endpoint {
   /// {@endtemplate}
   final bool skipVerification;
 
-  final String customSni;
+  final String? customSni;
 
   /// {@macro endpoint}
   ///
@@ -132,7 +132,6 @@ final class Endpoint {
     this.clientRandom = '',
     this.skipVerification = false,
     this.certificate = '',
-    this.customSni = '',
     this.antiDpi = false,
     this.upStreamFallbackProtocol,
     required this.hostName,
@@ -140,5 +139,6 @@ final class Endpoint {
     required this.username,
     required this.password,
     required this.upStreamProtocol,
+    required this.customSni,
   });
 }

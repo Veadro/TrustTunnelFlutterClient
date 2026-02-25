@@ -4,6 +4,7 @@ import 'package:trusttunnel/common/error/error_utils.dart';
 import 'package:trusttunnel/common/error/model/presentation_base_error.dart';
 import 'package:trusttunnel/common/error/model/presentation_error.dart';
 import 'package:trusttunnel/common/error/model/presentation_field.dart';
+import 'package:trusttunnel/common/models/value_data.dart';
 import 'package:trusttunnel/data/model/vpn_protocol.dart';
 import 'package:trusttunnel/data/repository/routing_repository.dart';
 import 'package:trusttunnel/data/repository/server_repository.dart';
@@ -90,6 +91,7 @@ final class ServerDetailsController extends BaseStateController<ServerDetailsSta
     VpnProtocol? protocol,
     int? routingProfileId,
     List<String>? dnsServers,
+    ValueData<String>? customSni,
   }) => handle(() {
     setState(
       ServerDetailsState.idle(
@@ -106,6 +108,7 @@ final class ServerDetailsController extends BaseStateController<ServerDetailsSta
           protocol: protocol ?? state.data.protocol,
           routingProfileId: routingProfileId ?? state.data.routingProfileId,
           dnsServers: dnsServers ?? state.data.dnsServers,
+          customSni: customSni ?? ValueData(state.data.customSni),
         ),
       ),
     );
@@ -157,6 +160,7 @@ final class ServerDetailsController extends BaseStateController<ServerDetailsSta
             password: state.data.password,
             vpnProtocol: state.data.protocol,
             routingProfileId: state.data.routingProfileId,
+            customSni: state.data.customSni,
           ),
         );
       } else {
@@ -170,6 +174,7 @@ final class ServerDetailsController extends BaseStateController<ServerDetailsSta
             password: state.data.password,
             vpnProtocol: state.data.protocol,
             routingProfileId: state.data.routingProfileId,
+            customSni: state.data.customSni,
           ),
         );
       }

@@ -237,6 +237,7 @@ class _ServerDetailsFullScreenViewState extends State<ServerDetailsFullScreenVie
       dnsServers: data.dnsServers,
       routingProfile: profileController.routingList.firstWhere((p) => p.id == data.routingProfileId),
       selected: selectedServer.selected,
+      customSni: data.customSni,
     );
 
     controller.start(

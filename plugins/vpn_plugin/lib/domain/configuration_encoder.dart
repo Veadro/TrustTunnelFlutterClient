@@ -176,9 +176,9 @@ final class ConfigurationEncoder extends Converter<Configuration, String> {
   ///
   /// Strings are always quoted; all other values use `toString()`.
   /// {@endtemplate}
-  String _parseToConfigString(Object object) {
-    if (object is String) {
-      return object.isEmpty ? '""' : '"$object"';
+  String _parseToConfigString(Object? object) {
+    if (object is String || object == null) {
+      return (object as String? ?? '').isEmpty ? '""' : '"$object"';
     }
     return object.toString();
   }
@@ -300,8 +300,7 @@ upstream_fallback_protocol = $upstreamFallbackProtocol
 # Is anti-DPI measures should be enabled
 anti_dpi = $antiDpi
 
-custom_sni=$customSni
-
+custom_sni = $customSni
 
 # Defines the way to listen to network traffic by the kind of the nested table.
 # Possible types:

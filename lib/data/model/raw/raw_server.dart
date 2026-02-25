@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:meta/meta.dart';
+import 'package:trusttunnel/common/models/value_data.dart';
 import 'package:trusttunnel/data/model/vpn_protocol.dart';
 
 /// {@template raw_server}
@@ -46,6 +47,8 @@ class RawServer {
   /// Whether this server is marked as the currently selected one.
   final bool selected;
 
+  final String? customSni;
+
   /// {@macro raw_server}
   const RawServer({
     required this.id,
@@ -57,6 +60,8 @@ class RawServer {
     required this.vpnProtocol,
     required this.dnsServers,
     required this.routingProfileId,
+    required this.customSni,
+
     this.selected = false,
   });
 
@@ -72,6 +77,7 @@ class RawServer {
     Object.hashAll(dnsServers),
     routingProfileId,
     selected,
+    customSni,
   );
 
   @override
@@ -85,7 +91,8 @@ class RawServer {
       'vpnProtocol: $vpnProtocol, '
       'dnsServers: $dnsServers, '
       'routingProfileId: $routingProfileId, '
-      'selected: $selected'
+      'selected: $selected, '
+      'customSni: $customSni'
       ')';
 
   @override
@@ -102,6 +109,7 @@ class RawServer {
         other.vpnProtocol == vpnProtocol &&
         listEquals(other.dnsServers, dnsServers) &&
         other.routingProfileId == routingProfileId &&
+        other.customSni == customSni &&
         other.selected == selected;
   }
 
@@ -119,6 +127,7 @@ class RawServer {
     List<String>? dnsServers,
     int? routingProfileId,
     bool? selected,
+    ValueData<String>? customSni,
   }) => RawServer(
     id: id ?? this.id,
     name: name ?? this.name,
@@ -130,5 +139,6 @@ class RawServer {
     dnsServers: dnsServers ?? this.dnsServers,
     routingProfileId: routingProfileId ?? this.routingProfileId,
     selected: selected ?? this.selected,
+    customSni: customSni == null ? this.customSni : customSni.value,
   );
 }

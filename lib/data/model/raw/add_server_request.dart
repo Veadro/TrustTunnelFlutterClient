@@ -33,4 +33,6 @@ typedef AddServerRequest = ({
 
   /// DNS upstream addresses associated with this server.
   List<String> dnsServers,
+
+  String? customSni,
 });

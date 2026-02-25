@@ -42,6 +42,13 @@ class ServerDetailsServiceImpl implements ServerDetailsService {
       fields.add(domainValidationResult);
     }
 
+    if (data.customSni != null) {
+      final sniValidationResult = _validateCustomSni(data.customSni!);
+      if (sniValidationResult != null) {
+        fields.add(sniValidationResult);
+      }
+    }
+
     final usernameValidationResult = _validateUsername(data.username);
     if (usernameValidationResult != null) {
       fields.add(usernameValidationResult);
@@ -70,6 +77,7 @@ class ServerDetailsServiceImpl implements ServerDetailsService {
     vpnProtocol: data.protocol,
     dnsServers: data.dnsServers,
     routingProfileId: data.routingProfileId,
+    customSni: data.customSni,
   );
 
   @override
@@ -82,6 +90,7 @@ class ServerDetailsServiceImpl implements ServerDetailsService {
     protocol: server.vpnProtocol,
     routingProfileId: server.routingProfile.id,
     dnsServers: server.dnsServers.cast<String>(),
+    customSni: server.customSni,
   );
 
   PresentationField? _validateServerName(String serverName, Set<String> otherServerNames) {
@@ -102,8 +111,11 @@ class ServerDetailsServiceImpl implements ServerDetailsService {
     return validationResult ? null : _getFieldWrongValue(PresentationFieldName.ipAddress);
   }
 
-  PresentationField? _validateDomain(String domain) {
-    final fieldName = PresentationFieldName.domain;
+  PresentationField? _validateDomain(String domain) => _validateDomainData(domain, PresentationFieldName.domain);
+
+  PresentationField? _validateCustomSni(String sni) => _validateDomainData(sni, PresentationFieldName.sni);
+
+  PresentationField? _validateDomainData(String domain, PresentationFieldName fieldName) {
     if (domain.isEmpty) {
       return _getRequiredField(fieldName);
     }

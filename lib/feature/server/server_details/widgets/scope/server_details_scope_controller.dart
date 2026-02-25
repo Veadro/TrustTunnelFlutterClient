@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:trusttunnel/common/error/model/presentation_error.dart';
 import 'package:trusttunnel/common/error/model/presentation_field.dart';
+import 'package:trusttunnel/common/models/value_data.dart';
 import 'package:trusttunnel/data/model/routing_profile.dart';
 import 'package:trusttunnel/data/model/vpn_protocol.dart';
 import 'package:trusttunnel/feature/server/server_details/model/server_details_data.dart';
@@ -15,6 +16,7 @@ typedef DataChangedCallback =
       VpnProtocol? protocol,
       int? routingProfileId,
       List<String>? dnsServers,
+      ValueData<String>? customSni,
     });
 
 abstract class ServerDetailsScopeController {

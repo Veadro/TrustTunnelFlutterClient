@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:meta/meta.dart';
+import 'package:trusttunnel/common/models/value_data.dart';
 import 'package:trusttunnel/data/model/vpn_protocol.dart';
 import 'package:trusttunnel/common/utils/routing_profile_utils.dart';
 
@@ -70,6 +71,8 @@ class ServerDetailsData {
   /// The list is expected to be treated as immutable by callers.
   final List<String> dnsServers;
 
+  final String? customSni;
+
   /// {@macro server_details_data}
   const ServerDetailsData({
     this.serverName = '',
@@ -80,6 +83,7 @@ class ServerDetailsData {
     this.protocol = VpnProtocol.http2,
     this.routingProfileId = RoutingProfileUtils.defaultRoutingProfileId,
     this.dnsServers = const <String>[],
+    this.customSni,
   });
 
   @override
@@ -92,6 +96,7 @@ class ServerDetailsData {
     protocol,
     routingProfileId,
     Object.hashAll(dnsServers),
+    customSni,
   );
 
   @override
@@ -103,7 +108,8 @@ class ServerDetailsData {
       'username: $username, '
       'protocol: $protocol, '
       'routingProfileId: $routingProfileId, '
-      'dnsServers: $dnsServers'
+      'dnsServers: $dnsServers, '
+      'customSni: $customSni'
       ')';
 
   @override
@@ -118,6 +124,7 @@ class ServerDetailsData {
         other.password == password &&
         other.protocol == protocol &&
         other.routingProfileId == routingProfileId &&
+        other.customSni == customSni &&
         listEquals(other.dnsServers, dnsServers);
   }
 
@@ -130,6 +137,7 @@ class ServerDetailsData {
     VpnProtocol? protocol,
     int? routingProfileId,
     List<String>? dnsServers,
+    ValueData<String>? customSni,
   }) => ServerDetailsData(
     serverName: serverName ?? this.serverName,
     ipAddress: ipAddress ?? this.ipAddress,
@@ -139,5 +147,6 @@ class ServerDetailsData {
     protocol: protocol ?? this.protocol,
     routingProfileId: routingProfileId ?? this.routingProfileId,
     dnsServers: dnsServers ?? this.dnsServers,
+    customSni: customSni == null ? this.customSni : customSni.value,
   );
 }

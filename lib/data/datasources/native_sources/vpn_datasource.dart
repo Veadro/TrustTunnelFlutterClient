@@ -100,6 +100,7 @@ class VpnDataSourceImpl implements VpnDataSource {
       upStreamProtocol: UpStreamProtocolEncoder().convert(
         server.vpnProtocol,
       ),
+      customSni: server.customSni,
     );
 
     return _platformApi.start(
@@ -152,6 +153,7 @@ class VpnDataSourceImpl implements VpnDataSource {
       upStreamProtocol: UpStreamProtocolEncoder().convert(
         server.vpnProtocol,
       ),
+      customSni: server.customSni,
     );
 
     return _platformApi.updateConfiguration(

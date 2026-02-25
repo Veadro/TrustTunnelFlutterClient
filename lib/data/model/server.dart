@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:meta/meta.dart';
+import 'package:trusttunnel/common/models/value_data.dart';
 import 'package:trusttunnel/data/model/routing_profile.dart';
 import 'package:trusttunnel/data/model/vpn_protocol.dart';
 
@@ -60,8 +61,8 @@ class Server {
     required this.vpnProtocol,
     required this.dnsServers,
     required this.routingProfile,
+    required this.customSni,
     this.selected = false,
-    this.customSni,
   });
 
   @override
@@ -126,7 +127,7 @@ class Server {
     List<String>? dnsServers,
     RoutingProfile? routingProfile,
     bool? selected,
-    String? customSni,
+    ValueData<String>? customSni,
   }) => Server(
     id: id ?? this.id,
     name: name ?? this.name,
@@ -138,6 +139,6 @@ class Server {
     dnsServers: dnsServers ?? this.dnsServers,
     routingProfile: routingProfile ?? this.routingProfile,
     selected: selected ?? this.selected,
-    customSni: customSni ?? this.customSni,
+    customSni: customSni == null ? this.customSni : customSni.value,
   );
 }

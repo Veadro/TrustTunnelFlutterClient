@@ -48,6 +48,7 @@ class ServerRepositoryImpl implements ServerRepository {
       vpnProtocol: server.vpnProtocol,
       dnsServers: server.dnsServers,
       routingProfile: profile,
+      customSni: server.customSni,
     );
   }
 
@@ -70,6 +71,7 @@ class ServerRepositoryImpl implements ServerRepository {
             dnsServers: e.dnsServers,
             routingProfile: profilesMap[e.routingProfileId]!,
             selected: e.selected,
+            customSni: e.customSni,
           ),
         )
         .toList();
@@ -101,6 +103,7 @@ class ServerRepositoryImpl implements ServerRepository {
       dnsServers: server.dnsServers,
       routingProfile: profile,
       selected: server.selected,
+      customSni: server.customSni,
     );
   }
 }

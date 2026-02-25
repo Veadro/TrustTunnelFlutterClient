@@ -4,6 +4,7 @@ import 'package:trusttunnel/common/error/model/enum/presentation_field_name.dart
 import 'package:trusttunnel/common/error/model/presentation_field.dart';
 import 'package:trusttunnel/common/localization/extensions/locale_enum_extension.dart';
 import 'package:trusttunnel/common/localization/localization.dart';
+import 'package:trusttunnel/common/models/value_data.dart';
 import 'package:trusttunnel/common/utils/validation_utils.dart';
 import 'package:trusttunnel/data/model/routing_profile.dart';
 import 'package:trusttunnel/data/model/vpn_protocol.dart';
@@ -80,6 +81,7 @@ class _ServerDetailsFormState extends State<ServerDetailsForm> {
           value: _formData.ipAddress,
           label: context.ln.enterIpAddressLabel,
           hint: context.ln.enterIpAddressHint,
+          helper: context.ln.enterIpAddressHelper,
           onChanged: (ipAddress) => _onDataChanged(
             context,
             ipAddress: ipAddress,
@@ -102,6 +104,20 @@ class _ServerDetailsFormState extends State<ServerDetailsForm> {
             context,
             _fieldErrors,
             PresentationFieldName.domain,
+          ),
+        ),
+        CustomTextField(
+          value: _formData.customSni,
+          label: context.ln.customSniLabel,
+          hint: context.ln.customSniHint,
+          onChanged: (domain) => _onDataChanged(
+            context,
+            customSni: ValueData(domain.trim().isEmpty ? null : domain),
+          ),
+          error: ValidationUtils.getErrorString(
+            context,
+            _fieldErrors,
+            PresentationFieldName.sni,
           ),
         ),
         CustomTextField(
@@ -186,6 +202,7 @@ class _ServerDetailsFormState extends State<ServerDetailsForm> {
     VpnProtocol? protocol,
     int? routingProfileId,
     List<String>? dnsServers,
+    ValueData<String>? customSni,
   }) =>
       ServerDetailsScope.controllerOf(
         context,
@@ -199,5 +216,6 @@ class _ServerDetailsFormState extends State<ServerDetailsForm> {
         protocol: protocol,
         routingProfileId: routingProfileId,
         dnsServers: dnsServers,
+        customSni: customSni,
       );
 }
