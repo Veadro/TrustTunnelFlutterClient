@@ -15,6 +15,10 @@ abstract class NavigationUtils {
       'label': context.ln.routing,
     },
     {
+      'icon': Icons.monitor_heart_outlined,
+      'label': 'Monitor',
+    },
+    {
       'icon': AssetIcons.settings,
       'label': context.ln.settings,
     },

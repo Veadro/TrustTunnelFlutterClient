@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:trusttunnel/common/extensions/context_extensions.dart';
 import 'package:trusttunnel/common/utils/navigation_utils.dart';
 import 'package:trusttunnel/feature/navigation/widgets/custom_navigation_rail.dart';
+import 'package:trusttunnel/feature/network_monitor/widgets/network_monitor_screen.dart';
 import 'package:trusttunnel/feature/routing/routing/widgets/routing_screen.dart';
 import 'package:trusttunnel/feature/server/servers/widget/servers_screen.dart';
 import 'package:trusttunnel/feature/settings/settings/settings_screen.dart';
@@ -66,7 +67,8 @@ class _NavigationScreenState extends State<NavigationScreen> {
   Widget getScreenByIndex(int selectedIndex) => switch (selectedIndex) {
     0 => const ServersScreen(),
     1 => const RoutingScreen(),
-    2 => const SettingsScreen(),
+    2 => const NetworkMonitorScreen(),
+    3 => const SettingsScreen(),
     _ => throw Exception('Invalid index: $selectedIndex'),
   };
 
