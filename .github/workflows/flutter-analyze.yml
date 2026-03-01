@@ -23,6 +23,12 @@ jobs:
       - name: Install dependencies
         run: flutter pub get
 
+      - name: Install plugin dependencies
+        run: cd plugins/vpn_plugin && flutter pub get
+
+      - name: Generate Pigeon platform API
+        run: cd plugins/vpn_plugin && dart run pigeon --input pigeons/platform_api.dart
+
       - name: Generate localizations
         run: dart run intl_utils:generate
 

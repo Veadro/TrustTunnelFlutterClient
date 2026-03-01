@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:trusttunnel/data/model/connection_stats.dart';
 import 'package:trusttunnel/data/model/ping_sample.dart';
 
