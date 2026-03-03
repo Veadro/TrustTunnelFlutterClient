@@ -20,6 +20,8 @@ set(PLUGIN_NAME "vpn_plugin_plugin")
 list(APPEND PLUGIN_SOURCES
   "vpn_plugin.cpp"
   "vpn_plugin.h"
+  "runner/platform_api.g.cpp"
+  "runner/platform_api.g.h"
 )
 
 # Define the plugin library target. Its name must not be changed (see comment
@@ -46,6 +48,8 @@ target_compile_definitions(${PLUGIN_NAME} PRIVATE FLUTTER_PLUGIN_IMPL)
 # dependencies here.
 target_include_directories(${PLUGIN_NAME} INTERFACE
   "${CMAKE_CURRENT_SOURCE_DIR}/include")
+target_include_directories(${PLUGIN_NAME} PRIVATE
+  "${CMAKE_CURRENT_SOURCE_DIR}/runner")
 target_link_libraries(${PLUGIN_NAME} PRIVATE flutter flutter_wrapper_plugin)
 
 # List of absolute paths to libraries that should be bundled with the plugin.
