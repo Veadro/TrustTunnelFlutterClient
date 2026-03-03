@@ -1,0 +1,50 @@
+name: Build Windows GUI
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+  workflow_dispatch:
+
+jobs:
+  build-windows:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: "3.38.3"
+          cache: true
+
+      - name: Install dependencies
+        run: flutter pub get
+
+      - name: Install plugin dependencies
+        run: cd plugins/vpn_plugin && flutter pub get
+
+      - name: Generate Pigeon platform API
+        run: cd plugins/vpn_plugin && dart run pigeon --input pigeons/platform_api.dart
+
+      - name: Generate localizations
+        run: dart run intl_utils:generate
+
+      - name: Generate code (drift, etc.)
+        run: dart run build_runner build --delete-conflicting-outputs
+
+      - name: Build Windows release
+        run: flutter build windows --release
+
+      - name: Package artifacts
+        run: |
+          New-Item -ItemType Directory -Force -Path release | Out-Null
+          Copy-Item -Recurse build/windows/x64/runner/Release/* release/
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: trusttunnel-gui-windows-x64
+          path: release/
