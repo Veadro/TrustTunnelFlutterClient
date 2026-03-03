@@ -94,7 +94,7 @@ AddNewServerResult ServersManagerImpl::AddNewServer(const std::string& /*name*/,
   if (dns.empty()) return AddNewServerResult::kDnsServersIncorrect;
 
   int64_t new_id = 1;
-  for (const auto& s : storage_->AllServers()) new_id = std::max(new_id, s.id + 1);
+  for (const auto& s : storage_->AllServers()) new_id = (std::max)(new_id, s.id + 1);
 
   storage_->AllServers().push_back(
       Server{new_id, ip, domain, user, pass, dns, proto, routing_profile_id});
@@ -174,7 +174,7 @@ void ServersManagerImpl::Trim(std::string& str) {
 
 void RoutingProfilesManagerImpl::AddNewProfile() {
   int64_t new_id = 1;
-  for (const auto& p : storage_->AllRoutingProfiles()) new_id = std::max(new_id, p.id + 1);
+  for (const auto& p : storage_->AllRoutingProfiles()) new_id = (std::max)(new_id, p.id + 1);
   storage_->AllRoutingProfiles()
       .push_back(RoutingProfile{new_id, "Profile " + std::to_string(new_id), RoutingMode::kVpn, {}, {}});
 }
