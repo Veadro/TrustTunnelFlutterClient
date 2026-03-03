@@ -4,7 +4,6 @@
 #include <flutter/event_channel.h>
 #include <flutter/plugin_registrar_windows.h>
 #include <flutter/standard_method_codec.h>
-#include <flutter/task_runner.h>
 
 #include <memory>
 #include <mutex>
@@ -87,8 +86,7 @@ class MockStorage {
 class VpnEventStreamHandler
     : public flutter::StreamHandler<flutter::EncodableValue> {
  public:
-  explicit VpnEventStreamHandler(MockStorage* storage,
-                                 std::shared_ptr<flutter::TaskRunner> ui_runner);
+  explicit VpnEventStreamHandler(MockStorage* storage);
 
   void EmitState(VpnManagerState state);
 
@@ -102,15 +100,13 @@ class VpnEventStreamHandler
 
  private:
   MockStorage* storage_;
-  std::shared_ptr<flutter::TaskRunner> ui_runner_;
   std::mutex mutex_;
   std::unique_ptr<flutter::EventSink<flutter::EncodableValue>> sink_;
 };
 
 class IVpnManagerImpl {
  public:
-  IVpnManagerImpl(MockStorage* storage, VpnEventStreamHandler* handler,
-                  std::shared_ptr<flutter::TaskRunner> ui_runner);
+  IVpnManagerImpl(MockStorage* storage, VpnEventStreamHandler* handler);
   void Start();
   void Stop();
   VpnManagerState GetCurrentState();
@@ -118,7 +114,6 @@ class IVpnManagerImpl {
  private:
   MockStorage* storage_;
   VpnEventStreamHandler* handler_;
-  std::shared_ptr<flutter::TaskRunner> ui_runner_;
 };
 
 class StorageManagerImpl {

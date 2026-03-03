@@ -1,8 +1,6 @@
 #include "vpn_plugin.h"
 
 #include <algorithm>
-#include <chrono>
-#include <thread>
 
 using flutter::EncodableValue;
 
@@ -35,9 +33,8 @@ void MockStorage::SetupMockData() {
 }
 
 // ---------------- StreamHandler ----------------
-VpnEventStreamHandler::VpnEventStreamHandler(MockStorage* storage,
-                                             std::shared_ptr<flutter::TaskRunner> ui_runner)
-    : storage_(storage), ui_runner_(std::move(ui_runner)) {}
+VpnEventStreamHandler::VpnEventStreamHandler(MockStorage* storage)
+    : storage_(storage) {}
 
 void VpnEventStreamHandler::EmitState(VpnManagerState state) {
   std::lock_guard<std::mutex> lock(mutex_);
@@ -65,19 +62,12 @@ VpnEventStreamHandler::OnCancelInternal(const EncodableValue* /*arguments*/) {
 }
 
 // ---------------- Managers ----------------
-IVpnManagerImpl::IVpnManagerImpl(MockStorage* storage, VpnEventStreamHandler* handler,
-                                 std::shared_ptr<flutter::TaskRunner> ui_runner)
-    : storage_(storage), handler_(handler), ui_runner_(std::move(ui_runner)) {}
+IVpnManagerImpl::IVpnManagerImpl(MockStorage* storage, VpnEventStreamHandler* handler)
+    : storage_(storage), handler_(handler) {}
 
 void IVpnManagerImpl::Start() {
-  storage_->CurrentVpnState() = VpnManagerState::kConnecting;
+  storage_->CurrentVpnState() = VpnManagerState::kConnected;
   handler_->EmitState(storage_->CurrentVpnState());
-
-  std::thread([this]() {
-    std::this_thread::sleep_for(std::chrono::seconds(2));
-    storage_->CurrentVpnState() = VpnManagerState::kConnected;
-    ui_runner_->PostTask([this]() { handler_->EmitState(storage_->CurrentVpnState()); });
-  }).detach();
 }
 
 void IVpnManagerImpl::Stop() {
@@ -216,16 +206,15 @@ void RoutingProfilesManagerImpl::RemoveAllRules(int64_t id) {
 // ---------------- VpnPlugin ----------------
 void VpnPlugin::RegisterWithRegistrar(flutter::PluginRegistrarWindows* registrar) {
   auto messenger = registrar->messenger();
-  auto ui_runner = registrar->task_runner();
 
   auto storage = std::make_shared<MockStorage>();
-  auto handler = std::make_unique<VpnEventStreamHandler>(storage.get(), ui_runner);
+  auto handler = std::make_unique<VpnEventStreamHandler>(storage.get());
 
   auto event_channel = std::make_unique<flutter::EventChannel<EncodableValue>>(
       messenger, "vpn_plugin_event_channel", &flutter::StandardMethodCodec::GetInstance());
   event_channel->SetStreamHandler(std::unique_ptr<VpnEventStreamHandler>(handler.get()));
 
-  auto vpn_manager = std::make_unique<IVpnManagerImpl>(storage.get(), handler.get(), ui_runner);
+  auto vpn_manager = std::make_unique<IVpnManagerImpl>(storage.get(), handler.get());
   auto storage_manager = std::make_unique<StorageManagerImpl>(storage.get());
   auto servers_manager = std::make_unique<ServersManagerImpl>(storage.get());
   auto routing_manager = std::make_unique<RoutingProfilesManagerImpl>(storage.get());
